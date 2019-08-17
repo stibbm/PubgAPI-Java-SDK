@@ -58,7 +58,7 @@ public class PubgAPI {
 			JSONArray matchesArray = matchesWrapper.getJSONArray("data");
 			
 			for(int i=0;i<matchesArray.length();i++) {
-				JSONObject match = matchesArray.getJSONObject(0);
+				JSONObject match = matchesArray.getJSONObject(i);
 				String matchId = match.getString("id");
 				matchIds.add(matchId);
 			}
