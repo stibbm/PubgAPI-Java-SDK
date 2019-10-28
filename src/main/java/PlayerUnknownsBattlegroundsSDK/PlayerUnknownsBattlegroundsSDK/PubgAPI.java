@@ -169,7 +169,7 @@ public class PubgAPI {
 	 */
 	public JSONObject getPlayerJSON(String playerName) {
 		try {
-			// Thread.sleep(6000);
+			Thread.sleep(6000);
 		} catch (Exception e) {
 
 		}
