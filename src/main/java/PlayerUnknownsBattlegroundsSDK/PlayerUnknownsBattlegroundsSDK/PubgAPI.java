@@ -1,4 +1,4 @@
-//**
+/**
  * Matthew Stibbins
  * 7/28/2019
  * Player Unknown's Battlegrounds Java SDK for accessing web API
