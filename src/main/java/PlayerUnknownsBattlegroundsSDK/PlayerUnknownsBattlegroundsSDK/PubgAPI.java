@@ -4,7 +4,7 @@
  * Player Unknown's Battlegrounds Java SDK for accessing web API
  */
 
-package Pla.play;
+package PlayerUnknownsBattlegroundsSDK.PlayerUnknownsBattlegroundsSDK;
 
 import java.io.BufferedReader;
 import java.io.File;
