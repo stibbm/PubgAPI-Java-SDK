@@ -4,7 +4,7 @@
  * Player Unknown's Battlegrounds Java SDK for accessing web API
  */
 
-package PlayerUnknownsBattlegroundsSDK.PlayerUnknownsBattlegroundsSDK;
+package Pla.play;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,9 +15,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.zip.GZIPInputStream;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 
 public class PubgAPI {
 	private static final String defaultAPIKEYfilename = "credentials.txt";
@@ -34,8 +34,8 @@ public class PubgAPI {
 	/**
 	 * Return list of recent match ids for the given player
 	 * 
-	 * @param playerName
-	 * @return
+	 * @param String playerName
+	 * @return ArrayList<String> matchIds
 	 */
 	public ArrayList<String> getRecentMatches(String playerName) {
 		try {
@@ -66,10 +66,10 @@ public class PubgAPI {
 	}
 
 	/**
-	 * Retuns the accountId corresponding to the given player
+	 * Returns the accountId corresponding to the given player
 	 * 
-	 * @param playerName
-	 * @return
+	 * @param String playerName
+	 * @return String accountId
 	 */
 	public String getPlayerAccountId(String playerName) {
 
@@ -97,10 +97,10 @@ public class PubgAPI {
 	/**
 	 * Returns the match JSON object corresponding to the given matchId
 	 * 
-	 * @param matchId
-	 * @return
+	 * @param String matchId
+	 * @return JSONObject matchJSON
 	 */
-	public JSONObject getMatchAPICall(String matchId) {
+	public JSONObject getMatchJSON(String matchId) {
 		String response = "";
 		try {
 			String urlString = "https://api.pubg.com/shards/steam/matches/" + matchId;
@@ -126,8 +126,8 @@ public class PubgAPI {
 	/**
 	 * Returns the lifetime stats returned by the api for the given player
 	 * 
-	 * @param accountId
-	 * @return
+	 * @param String accountId
+	 * @return JSONObject lifetimeStats
 	 * @throws Exception
 	 */
 	public JSONObject getPlayerLifetimeStats(String accountId) {
@@ -164,8 +164,8 @@ public class PubgAPI {
 	/**
 	 * Returns the JSONObject corresponding to the given player
 	 * 
-	 * @param playerName
-	 * @return
+	 * @param String playerName
+	 * @return JSONObject playerJSON
 	 */
 	public JSONObject getPlayerJSON(String playerName) {
 		try {
@@ -203,20 +203,38 @@ public class PubgAPI {
 	/**
 	 * Returns the telemetry JSON for a given match id
 	 * 
-	 * @param matchId
-	 * @return
+	 * @param String matchId
+	 * @return JSONObject telemetryJSON
 	 */
 	public JSONObject getTelemetryJSON(String matchId) {
+		String telemetryUrl = "";
 		try {
 			Thread.sleep(6000);
-		} catch (Exception e) {
+			
+			JSONObject matchJSON = getMatchJSON(matchId);
+			String matchString = matchJSON.toString();
+			String data = matchString;
+			if(data.toLowerCase().contains("https://")) {
+	        	String telemArea = data.substring(data.indexOf("https://"), data.indexOf("https://")+ 150);
+	        	String telemUrl = telemArea.substring(0, telemArea.indexOf("\""));
+	        	System.out.println(telemArea);
+	        	System.out.println(telemUrl);
+	        	telemetryUrl = telemUrl;
+	        }
+			
+			
 
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
+		
+		
 
 		JSONObject telemetryJSON = null;
 		try {
 			// open connection and set headers
-			String urlString = "https://api.pubg.com/shards/steam/players?filter[playerNames]=" + matchId;
+			String urlString = telemetryUrl;
 			URL url = new URL(urlString);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
