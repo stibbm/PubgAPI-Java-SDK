@@ -5,7 +5,7 @@ In order to use you need your own API key which should be placed in the credenti
 
 Pubg API Wrapper for accessing API endpoints
 
-Functions available
+Functions available  
 --> ArrayList<String> getRecentMatches(String playerName)  
 --> String getPlayerAccountId(String playerName)  
 --> JSONObject getMatchJSON(String matchId)  
