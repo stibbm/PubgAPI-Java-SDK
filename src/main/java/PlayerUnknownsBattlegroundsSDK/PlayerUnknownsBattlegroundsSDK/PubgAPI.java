@@ -253,7 +253,7 @@ public class PubgAPI {
 
 			while (true) {
 				int ch = reader.read();
-				if (ch == 1) {
+				if (ch == -1) {
 					break;
 				}
 				telemetryText += ch;
